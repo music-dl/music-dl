@@ -4,6 +4,9 @@ Bundler.require(:default)
 # Bundler.require(:development)
 
 require_relative 'lib/downloader_option_parser'
+require_relative 'lib/music_providers/base'
+require_relative 'lib/music_providers/youtube'
+require_relative 'lib/music_providers/mail_ru'
 require_relative 'lib/downloader'
 require_relative 'lib/keys_fetcher'
 require_relative 'lib/color'
@@ -14,7 +17,7 @@ Yt.configure do |config|
   config.api_key = KeysFetcher.key(:youtube, :google_api_key)
 end
 
-downloader = Downloader.new(options[:path])
+downloader = Downloader.new(options[:music_provider], options[:path])
 
 if options[:artist]
   downloader.dl_artist_top_tracks(options[:artist])

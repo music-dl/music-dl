@@ -52,6 +52,15 @@ class DownloaderOptionParser
         @options[:songs_file_path] = file_path
       end
 
+      @options[:music_provider] = MusicProviders::Youtube.new
+      opts.on('-y', '--youtube', 'use YouTube to download tracks') do
+        @options[:music_provider] = MusicProviders::Youtube.new
+      end
+
+      opts.on('-m', '--mailru', 'use mail.ru/music to download tracks') do
+        @options[:music_provider] = MusicProviders::MailRu.new
+      end
+
       @options[:path] = DEFAULT_PATH
       opts.on('-d', '--destination-path PATH',
               "destination of downloaded files (default ./#{DEFAULT_PATH})") do |path|

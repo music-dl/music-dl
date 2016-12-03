@@ -34,7 +34,7 @@ To download songs from spotify playlists please add spotify api credentials (top
 ## Usage
 
 ##### Download one track
-And save it to `~/Music` folder. `-d` option can be used together with any other options. Without it tracks will be saved to `./audio` folder.
+And save it to `~/Music` folder. Use `-d` option to specify destination folder. It can be used together with any other options. Without it tracks will be saved to `./audio` folder.
 
 ```bash
 ruby main.rb -t 'r you mine' -d ~/Music
@@ -54,6 +54,12 @@ ruby main.rb -f 'songs.txt'
 ##### Download tracks from spotify playlist
 ```bash
 ruby main.rb -p 'https://open.spotify.com/user/1249251980/playlist/3SC5B4DyGykKQIcNA7uemX'
+```
+
+##### Specify music provider
+By default tracks get downloaded from YouTube. You can use mail.ru/music passing `-m` option.
+```bash
+ruby main.rb -t 'mutter' -m
 ```
 
 ##### See full list of options

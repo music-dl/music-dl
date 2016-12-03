@@ -2,9 +2,9 @@ require 'shellwords'
 
 class Downloader
   THREADS_NUMBER = 3
-  AUDIO_FORMAT = 'mp3'.freeze
 
-  def initialize(path)
+  def initialize(music_provider, path)
+    @music_provider = music_provider
     @path = path
   end
 
@@ -24,18 +24,7 @@ class Downloader
   end
 
   def dl_track(track_name, directory: nil)
-    videos = Yt::Collections::Videos.new
-    video = videos.where(q: track_name, safe_search: 'none', order: 'relevance').first
-
-    puts "#{Color.pink('Downloading')} #{Color.blue(track_name)} from https://www.youtube.com/watch?v=#{video.id}"
-    file_path = File.join([@path, directory, '%(title)s.%(ext)s'].compact)
-    download_command = "youtube-dl --extract-audio --audio-format #{AUDIO_FORMAT} -o '#{file_path}' '#{video.id}'"
-    downloaded_file_name = `#{download_command} --get-filename`.gsub(/\.\w+\n/, ".#{AUDIO_FORMAT}")
-    `#{download_command}`
-
-    puts "#{Color.green('Saved')} #{Color.blue(track_name)} in\n"\
-         "#{Color.light_blue(Shellwords.escape(downloaded_file_name))}"
-    puts
+    @music_provider.download(track_name, File.join([@path, directory].compact))
   end
 
   private
