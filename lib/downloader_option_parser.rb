@@ -19,7 +19,7 @@ class DownloaderOptionParser
   def validate!
     options_error =
       if @options.slice(:artist, :track, :spotify_playlist_url, :songs_file_path).values.length != 1
-        'One of --artist, --track or --spotify-playlist-url must be provided'
+        "[#{Color.red('ERROR')}] One of --artist, --track, --spotify-playlist-url or --songs-file-path must be provided"
       end
 
     if options_error
@@ -35,24 +35,26 @@ class DownloaderOptionParser
     @parser ||= OptionParser.new do |opts|
       opts.banner = 'Usage: ruby main.rb [options]'
 
-      opts.on('-t', '--track TRACK', 'download single track') do |track|
+      opts.on('-t', '--track TRACK', 'single track name for youtube search. Download this track') do |track|
         @options[:track] = track
       end
 
-      opts.on('-a', '--artist ARTIST', "download artist's top 10 tracks") do |artist|
+      opts.on('-a', '--artist ARTIST', "artist's name for spotify search. Download artist's top 10 tracks") do |artist|
         @options[:artist] = artist
       end
 
-      opts.on('-p', '--spotify-playlist-url URL', 'url to spotify playlist') do |path|
-        @options[:spotify_playlist_url] = path
+      opts.on('-p', '--spotify-playlist-url URL', 'url to spotify playlist. Download tracks of this playlist') do |url|
+        @options[:spotify_playlist_url] = url
       end
 
-      opts.on('-f', '--songs-file-path URL', 'path to file with songs names each in new line') do |path|
-        @options[:songs_file_path] = path
+      opts.on('-f', '--songs-file-path PATH',
+              'path to file with track names each in new line. Download these tracks') do |file_path|
+        @options[:songs_file_path] = file_path
       end
 
       @options[:path] = DEFAULT_PATH
-      opts.on('-d', '--destination-path PATH', "path for downloaded files (default ./#{DEFAULT_PATH})") do |path|
+      opts.on('-d', '--destination-path PATH',
+              "destination of downloaded files (default ./#{DEFAULT_PATH})") do |path|
         @options[:path] = path
       end
     end

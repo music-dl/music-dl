@@ -1,6 +1,6 @@
 require 'yaml'
 
-class KeysManager
+class KeysFetcher
   SECRETS_PATH = 'secrets.yml'.freeze
 
   class << self
@@ -9,7 +9,7 @@ class KeysManager
       key_path.each do |path_part|
         result = result[path_part]
         quit result.blank? do
-          puts "#{key_path.join(' ').humanize} is not provided. #{see_readme_msg}"
+          puts "[#{Color.red('ERROR')}] #{key_path.join(' ').humanize} is not provided. #{see_readme_msg}"
         end
       end
       result
@@ -20,7 +20,7 @@ class KeysManager
     def keys_hash
       @keys_hash ||= begin
         quit !File.exist?(SECRETS_PATH) || !(yaml = YAML.load(File.read(SECRETS_PATH))) do
-          puts "Fill in #{SECRETS_PATH} file. #{see_readme_msg}"
+          puts "[#{Color.red('ERROR')}] Fill in #{SECRETS_PATH} file. #{see_readme_msg}"
         end
         yaml.with_indifferent_access
       end
