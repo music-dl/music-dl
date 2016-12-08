@@ -19,6 +19,12 @@ Install missing gems
 bundle install
 ```
 
+Install ffmpeg-normalize
+
+```bash
+sudo pip install ffmpeg-normalize
+```
+
 Copy yaml file with credentials and fill it in with your keys. For testing purposes you can use keys provided in `secrets.yml.public`, but please create your own keys ASAP to allow other people to test this tool, because free usage limits are too low for several users.
 
 ```bash

@@ -1,27 +1,9 @@
 class Color
   class << self
-    def red(string)
-      colorize(string, 31)
-    end
-
-    def green(string)
-      colorize(string, 32)
-    end
-
-    def yellow(string)
-      colorize(string, 33)
-    end
-
-    def blue(string)
-      colorize(string, 34)
-    end
-
-    def pink(string)
-      colorize(string, 35)
-    end
-
-    def light_blue(string)
-      colorize(string, 36)
+    { red: 31, green: 32, yellow: 33, blue: 34, pink: 35, light_blue: 36 }.each do |color, code|
+      define_method color do |string|
+        colorize(string, code)
+      end
     end
 
     def colorize(string, color_code)

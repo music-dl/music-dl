@@ -30,13 +30,16 @@ class Downloader
   private
 
   def dl_tracks(tracks_names, directory: nil)
-    tracks_names.in_groups(THREADS_NUMBER, false).map do |tracks_names_chunk|
-      Thread.new do
-        tracks_names_chunk.each do |track_name|
-          dl_track(track_name, directory: directory)
-        end
-      end
-    end.each(&:join)
+    # tracks_names.in_groups(THREADS_NUMBER, false).map do |tracks_names_chunk|
+    #   Thread.new do
+    #     tracks_names_chunk.each do |track_name|
+    #       dl_track(track_name, directory: directory)
+    #     end
+    #   end
+    # end.each(&:join)
+    binding.pry
+    path = File.join([@path, directory, "*.#{MusicProviders::Base::AUDIO_FORMAT}"].compact)
+    `ffmpeg-normalize #{Shellwords.escape(path).gsub('\*', '*')}`
   end
 
   # https://play.spotify.com/user/1249251980/playlist/3SC5B4DyGykKQIcNA7uemX
