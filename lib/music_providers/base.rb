@@ -13,9 +13,8 @@ module MusicProviders
     end
 
     def show_saved_msg(track_name, downloaded_file_name)
-      puts "#{Color.green('Saved')} #{Color.blue(track_name)} in\n"\
+      puts "#{Color.green('Saved')} #{Color.blue(track_name)} in "\
            "#{Color.light_blue(Shellwords.escape(downloaded_file_name))}"
-      puts
     end
   end
 end
