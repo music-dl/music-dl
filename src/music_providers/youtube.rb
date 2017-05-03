@@ -11,6 +11,7 @@ module MusicProviders
       `#{download_command}`
 
       show_saved_msg(track_name, downloaded_file_name)
+      downloaded_file_name
     end
   end
 end

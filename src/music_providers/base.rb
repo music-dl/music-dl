@@ -2,7 +2,7 @@ module MusicProviders
   class Base
     AUDIO_FORMAT = 'mp3'.freeze
 
-    def download(track_name, path)
+    def download(_track_name, _path)
       raise NotImplementedError
     end
 

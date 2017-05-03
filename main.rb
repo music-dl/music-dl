@@ -2,14 +2,16 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
 # Bundler.require(:development)
+require 'mp3info'
 
-require_relative 'lib/downloader_option_parser'
-require_relative 'lib/music_providers/base'
-require_relative 'lib/music_providers/youtube'
-require_relative 'lib/music_providers/mail_ru'
-require_relative 'lib/downloader'
-require_relative 'lib/keys_fetcher'
-require_relative 'lib/color'
+require_relative 'src/downloader_option_parser'
+require_relative 'src/music_providers/base'
+require_relative 'src/music_providers/youtube'
+require_relative 'src/music_providers/mail_ru'
+require_relative 'src/downloader'
+require_relative 'src/tags_verifier'
+require_relative 'src/keys_fetcher'
+require_relative 'src/color'
 
 options = DownloaderOptionParser.new.parse
 

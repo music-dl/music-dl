@@ -24,9 +24,10 @@ class Downloader
   end
 
   def dl_track(track_name, directory: nil)
-    @music_provider.download(track_name, File.join([@path, directory].compact))
+    file_path = @music_provider.download(track_name, File.join([@path, directory].compact))
+    TagsVerifier.new(track_name, file_path).verify
   rescue => e
-    puts Color.red("Error downloading track '#{track_name}' with #{@music_provider}: #{e.message}")
+    puts Color.red("Error downloading track '#{track_name}' with #{@music_provider.class}: #{e.message}")
     puts e.backtrace.join("\n")
   end
 
@@ -42,7 +43,7 @@ class Downloader
     end.each(&:join)
   end
 
-  # https://play.spotify.com/user/1249251980/playlist/3SC5B4DyGykKQIcNA7uemX
+  # url - https://play.spotify.com/user/1249251980/playlist/3SC5B4DyGykKQIcNA7uemX
   #
   def parse_playlist_url(url)
     rest_parts = URI.parse(url).path.split('/')

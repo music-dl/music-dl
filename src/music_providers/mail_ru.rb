@@ -14,6 +14,7 @@ module MusicProviders
       save_tmp_file(open(track_url), file_path)
 
       show_saved_msg(track_name, file_path)
+      file_path
     end
 
     private
