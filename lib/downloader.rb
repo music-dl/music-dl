@@ -25,6 +25,9 @@ class Downloader
 
   def dl_track(track_name, directory: nil)
     @music_provider.download(track_name, File.join([@path, directory].compact))
+  rescue => e
+    puts "Error downloading track '#{track_name}' with #{@music_provider}: #{e.message}"
+    puts e.backtrace.join("\n")
   end
 
   private
