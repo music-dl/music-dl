@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'bundler/setup'
-Bundler.require(:default)
-# Bundler.require(:development)
+require 'yt'
 require 'mp3info'
+require 'rest_client'
+require 'rspotify'
 
 require_relative 'src/downloader_option_parser'
 require_relative 'src/music_providers/base'
@@ -17,6 +18,7 @@ options = DownloaderOptionParser.new.parse
 
 Yt.configure do |config|
   config.api_key = KeysFetcher.key(:youtube, :google_api_key)
+  config.log_level = :debug
 end
 
 downloader = Downloader.new(options[:music_provider], options[:path])

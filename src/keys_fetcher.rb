@@ -1,7 +1,7 @@
 require 'yaml'
 
 class KeysFetcher
-  SECRETS_PATH = 'secrets.yml'.freeze
+  SECRETS_PATH = File.join(File.dirname(__FILE__), '..', 'secrets.yml').freeze
 
   class << self
     def key(*key_path)

@@ -19,13 +19,14 @@ class Downloader
   end
 
   def dl_tracks_from_file(file_path)
-    tracks_names = File.read(file_path).split("\n")
+    tracks_names = File.read(file_path)
+    tracks_names = file_path.ends_with?('.json') ? JSON.parse(tracks_names) : tracks_names.split("\n")
     dl_tracks(tracks_names, directory: File.basename(file_path, '.*'))
   end
 
   def dl_track(track_name, directory: nil)
-    file_path = @music_provider.download(track_name, File.join([@path, directory].compact))
-    TagsVerifier.new(track_name, file_path).verify
+    file_path = @music_provider.download(track_name, @path || directory)
+    # TagsVerifier.new(track_name, file_path).verify
   rescue => e
     puts Color.red("Error downloading track '#{track_name}' with #{@music_provider.class}: #{e.message}")
     puts e.backtrace.join("\n")

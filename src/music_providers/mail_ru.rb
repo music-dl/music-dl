@@ -7,7 +7,7 @@ module MusicProviders
       show_downloading_msg(track_name, search_page_url)
 
       track_info = JSON.parse(RestClient.get(search_page_url).scan(/\{"file"\:.*?}/).first)
-      track_url = track_info['url'].gsub(/\A\/\//, 'http://')
+      track_url = track_info['url'].gsub(/\A\/\//, 'https://')
       file_name = "#{track_info['author']} - #{track_info['name']}.#{AUDIO_FORMAT}"
       file_path = File.join(path, file_name)
 
